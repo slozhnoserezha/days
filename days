@@ -1,0 +1,48 @@
+//количество дней в недели
+package main
+
+import (
+	"bufio"
+	"dates"
+	"fmt"
+	"keyboard"
+	"log"
+	"os"
+
+	"strings"
+)
+
+var input string
+
+func main() {
+	fmt.Println("What do you want to count?")
+	reader := bufio.NewReader(os.Stdin)
+	input, err := reader.ReadString('\n')
+	if err != nil {
+		log.Fatal(err)
+	}
+	input = strings.TrimSpace(input)
+	switch {
+
+	case input == "days":
+		fmt.Println("Enter the number of days: ")
+		days, err := keyboard.GetFloat()
+		if err != nil {
+			log.Fatal(err)
+		}
+		weeks := dates.DaysToWeeks(int(days))
+		fmt.Printf("it's %.2f weeks\n", weeks)
+
+	case input == "weeks":
+		fmt.Println("Enter the number of weeks: ")
+		weeks, err := keyboard.GetFloat()
+		if err != nil {
+			log.Fatal(err)
+		}
+		days := dates.WeeksToDays(int(weeks))
+		fmt.Println("it's", days, "days")
+	default:
+		fmt.Println("Choose 'days' or 'weeks'")
+	}
+
+}
